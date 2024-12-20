@@ -14,6 +14,8 @@ namespace ToDoItem.Sahred.Repository
 
         public TEntity GetById(TIdentitfier id);
 
+        public bool Any(Expression<Func<TEntity, bool>> expression);
+
         public TEntity GetByCondition(Expression<Func<TEntity, bool>> expression = default!);
 
 

@@ -7,12 +7,19 @@ using ToDoItem.Application.Contexts;
 using ToDoItem.Domain.Exceptions;
 using ToDoItem.Domain.ToDoAgg.Repository;
 using ToDoItem.Domain.ToDoAgg.Services;
+using ToDoItem.Domain.UserAgg.Repository;
 
 namespace ToDoItem.Application.ToDoItems.Service
 {
     public sealed class ToDoItemService : IToDoItemService
     {
         private readonly IToDoItemRepository? _repository;
+        private readonly IUserRepository? _userRepository;
+
+        public ToDoItemService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
         public ToDoItemService(IToDoItemRepository repository)
         {
@@ -36,8 +43,8 @@ namespace ToDoItem.Application.ToDoItems.Service
                 return (default!, true);
         }
 
-        private bool CheckUserIsExisits(int userId) => userId == 1 ? true : false;
+        private bool CheckUserIsExisits(int userId) => _repository!.Any(c => c.UserCreated == userId);
 
-        private bool CheckUserCanCreateToDoItem(int userId) => userId == 2 ? true : false;
+        private bool CheckUserCanCreateToDoItem(int userId) => _userRepository!.CanUserCreateItem(userId);
     }
 }

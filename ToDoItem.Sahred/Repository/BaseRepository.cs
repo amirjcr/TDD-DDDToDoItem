@@ -46,5 +46,11 @@ namespace ToDoItem.Sahred.Repository
 
         public int SaveChanges() => _context.SaveChanges();
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => _context.SaveChangesAsync(cancellationToken);
+
+
+        public bool Any(Expression<Func<TEntity, bool>> expression)
+        {
+            return _db.Any(expression);
+        }
     }
 }
