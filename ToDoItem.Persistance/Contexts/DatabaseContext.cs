@@ -9,6 +9,7 @@ using ToDoItem.Application.Contexts;
 using ToDoItem.Domain.ToDoAgg;
 using ToDoItem.Domain.UserAgg;
 using ToDoItem.Persistance.Configuration;
+using ToDoItem.Sahred.Repository;
 
 namespace ToDoItem.Persistance.Contexts
 {

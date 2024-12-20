@@ -5,21 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoItem.Application.Contexts;
 using ToDoItem.Domain.Exceptions;
+using ToDoItem.Domain.ToDoAgg.Repository;
 using ToDoItem.Domain.ToDoAgg.Services;
 
 namespace ToDoItem.Application.ToDoItems.Service
 {
     public sealed class ToDoItemService : IToDoItemService
     {
-        private readonly IDatabaseContext? _context;
+        private readonly IToDoItemRepository? _repository;
 
-        public ToDoItemService(IDatabaseContext context)
+        public ToDoItemService(IToDoItemRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
         public ToDoItemService()
         {
-
         }
 
         public (T exception, bool isValid) CheckUser<T>(int userId) where T : Exception
