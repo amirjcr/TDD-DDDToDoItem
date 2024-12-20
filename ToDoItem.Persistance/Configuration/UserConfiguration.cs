@@ -8,8 +8,8 @@ namespace ToDoItem.Persistance.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(p => p.Password).IsRequired();
-            builder.Property(p => p.Email).IsRequired().HasMaxLength(100);
+            builder.OwnsOne(p => p.Password).Property(p => p.Value).IsRequired().HasMaxLength(150);
+            builder.OwnsOne(p => p.Email).Property(p => p.Address).IsRequired().HasMaxLength(100);
             builder.Property(p => p.Name).IsRequired().HasMaxLength(150);
         }
     }

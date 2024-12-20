@@ -36,7 +36,6 @@ namespace ToDoItem.Application.ToDoItems.Service
                 return (default!, true);
         }
 
-
         private bool CheckUserIsExisits(int userId) => userId == 1 ? true : false;
 
         private bool CheckUserCanCreateToDoItem(int userId) => userId == 2 ? true : false;

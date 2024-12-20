@@ -6,7 +6,7 @@ using ToDoItem.Domain.ToDoAgg.Repository;
 using ToDoItem.Domain.ToDoAgg.Services;
 using ToDoItem.Persistance.Contexts;
 
-namespace ToDoItem.Test
+namespace ToDoItem.Test.TodoItemAgg
 {
     [TestClass]
     public class ToDoItemRepositoryTest
@@ -35,7 +35,7 @@ namespace ToDoItem.Test
         [TestMethod]
         public void Isert_ItemWithCorrectData_WillReturnOne()
         {
-            var item = ToDoItem.Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
+            var item = Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
             _repo.Insert(item);
 
             Assert.IsTrue(_repo.SaveChanges() > 0);
@@ -44,7 +44,7 @@ namespace ToDoItem.Test
         [TestMethod]
         public void Search_ItemById_WillReturnItem()
         {
-            var item = ToDoItem.Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
+            var item = Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
             _repo.Insert(item);
             _repo.SaveChanges();
 
@@ -55,7 +55,7 @@ namespace ToDoItem.Test
         [TestMethod]
         public void UpdateItem_ChangeName_AcceptChanges()
         {
-            var item = ToDoItem.Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
+            var item = Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
             _repo.Insert(item);
             _repo.SaveChanges();
 
@@ -72,7 +72,7 @@ namespace ToDoItem.Test
         [TestMethod]
         public void DeleteItem_ByEntity_AcceptChanges()
         {
-            var item = ToDoItem.Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
+            var item = Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
             _repo.Insert(item);
             _repo.SaveChanges();
 
