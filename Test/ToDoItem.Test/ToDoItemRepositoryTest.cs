@@ -68,5 +68,21 @@ namespace ToDoItem.Test
 
             Assert.AreNotEqual(oldTitle, item.Title);
         }
+
+        [TestMethod]
+        public void DeleteItem_ByEntity_AcceptChanges()
+        {
+            var item = ToDoItem.Domain.ToDoAgg.ToDoItem.CreateItem("test item", DateTime.Now.AddDays(3), Priority.Normal, 4, _service);
+            _repo.Insert(item);
+            _repo.SaveChanges();
+
+            var oldTitle = item.Title;
+
+            _repo.Delete(item);
+            _repo.SaveChanges();
+
+            Assert.IsNull(_repo.GetById(item.Id));
+        }
+
     }
 }
