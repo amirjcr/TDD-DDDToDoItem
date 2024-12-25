@@ -16,25 +16,18 @@ namespace ToDoItem.Application.ToDoItems.Service
         private readonly IToDoItemRepository? _repository;
         private readonly IUserRepository? _userRepository;
 
-        public ToDoItemService(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
-        public ToDoItemService(IToDoItemRepository repository)
+        public ToDoItemService(IToDoItemRepository? repository, IUserRepository? userRepository)
         {
             _repository = repository;
-        }
-        public ToDoItemService()
-        {
+            _userRepository = userRepository;
         }
 
         public (T exception, bool isValid) CheckUser<T>(int userId) where T : Exception
         {
             Exception ex = default!;
-            if (CheckUserIsExisits(userId))
+            if (!CheckUserIsExisits(userId))
                 ex = new DomainEntityNotFoundException($"User With Id : {userId} Not Found");
-            else if (CheckUserCanCreateToDoItem(userId))
+            else if (!CheckUserCanCreateToDoItem(userId))
                 ex = new DomainRulesViolatedException("User Can Not Create DoItem");
 
             if (ex is not null)
@@ -43,7 +36,7 @@ namespace ToDoItem.Application.ToDoItems.Service
                 return (default!, true);
         }
 
-        private bool CheckUserIsExisits(int userId) => _repository!.Any(c => c.UserCreated == userId);
+        private bool CheckUserIsExisits(int userId) => _userRepository!.Any(c => c.Id == userId);
 
         private bool CheckUserCanCreateToDoItem(int userId) => _userRepository!.CanUserCreateItem(userId);
     }

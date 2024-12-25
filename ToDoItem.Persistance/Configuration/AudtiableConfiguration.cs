@@ -22,6 +22,7 @@ namespace ToDoItem.Persistance.Configuration
 
                 if (audtiableAttribute is not null)
                 {
+                    builder.Entity(entityType.ClrType).Property<DateTime>("CreatedDate").IsRequired();
                     builder.Entity(entityType.ClrType).Property<DateTime>("ModifiedDate");
                     builder.Entity(entityType.ClrType).Property<bool>("IsDeleted").IsRequired();
                 }

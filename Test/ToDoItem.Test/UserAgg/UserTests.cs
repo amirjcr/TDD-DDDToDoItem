@@ -86,7 +86,7 @@ namespace ToDoItem.Test.UserAgg
 
         [TestMethod]
         [ExpectedException(typeof(DomainRulesViolatedException))]
-        public void create_WithInvalidEmail_excepterror()
+        public void Create_WithInvalidEmail_excepterror()
         {
             User.Create("test user", new EmailAddress("amir x gmail.com"), new Password("testpassssss"), _service);
         }
@@ -125,7 +125,13 @@ namespace ToDoItem.Test.UserAgg
         public void UpdateEmail_WithReptededEmail_ThrownException()
         {
             var user = User.Create("test user 10 s", new EmailAddress("Test@gmail.com"), new Password("testpassword must"), _service);
-            user.Update(new EmailAddress("test@gmail.com"), _service);
+            var user2 = User.Create("test user 10 s", new EmailAddress("Test3@gmail.com"), new Password("testpassword must"), _service);
+            userRepository.Insert(user);
+            userRepository.Insert(user2);
+            userRepository.SaveChanges();
+
+            user2.Update(new EmailAddress("Test@gmail.com"), _service);
+
         }
     }
 }

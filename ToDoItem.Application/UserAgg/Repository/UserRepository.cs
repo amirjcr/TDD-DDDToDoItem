@@ -18,7 +18,7 @@ namespace ToDoItem.Application.UserAgg.Repository
 
         public bool CanUserCreateItem(int userId)
         {
-            return _context.Users.
+            return _context.Users.Any(u => u.Id == userId && u.IsRestricted == false);
         }
     }
 }

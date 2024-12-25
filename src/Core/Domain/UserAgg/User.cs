@@ -30,7 +30,7 @@ public sealed class User
     {
         if (email is null)
             throw new DomainRulesViolatedException("you can not pass null email");
-        else if (service.CheckEmailIsDuuplicate(email.Address!))
+        else if (email != this.Email! && service.CheckEmailIsDuuplicate(email.Address!))
             throw new DomainRulesViolatedException("Email Can Not Duplicate");
 
         this.Email = email;
