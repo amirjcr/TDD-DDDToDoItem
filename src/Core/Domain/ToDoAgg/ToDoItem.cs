@@ -31,13 +31,28 @@ namespace ToDoItem.Domain.ToDoAgg
         public User? User { get; private set; }
 
 
-        public void UpdateToDoItem(string title, DateTime finishedDate, Priority priority)
+        public void Update(string title, DateTime finishedDate, Priority priority)
         {
             UpdateGaurd(title, finishedDate, priority);
 
             this.Title = this.Title != title ? title : this.Title;
             this.FinishedDate = this.FinishedDate != finishedDate ? finishedDate : this.FinishedDate;
             this.Priority = this.Priority != priority ? priority : this.Priority;
+        }
+        public void Update(Priority priority)
+        {
+            PriorityGuard(priority);
+            this.Priority = this.Priority != priority ? priority : this.Priority;
+        }
+        public void Update(string title)
+        {
+            TitleGuard(title);
+            this.Title = this.Title != title ? title : this.Title;
+        }
+        public void Update(DateTime finishedDate)
+        {
+            FinishedDateGuard(finishedDate);
+            this.FinishedDate = this.FinishedDate != finishedDate ? finishedDate : this.FinishedDate;
         }
 
 
@@ -46,6 +61,8 @@ namespace ToDoItem.Domain.ToDoAgg
             return new ToDoItem(title, finishedDate, priority, userCreated, service);
         }
 
+
+        #region GuardMethods
         private void CreateGuard(string title, DateTime finishedDate, Priority priority, int userCreated, IToDoItemService service)
         {
             if (string.IsNullOrWhiteSpace(title))
@@ -62,12 +79,27 @@ namespace ToDoItem.Domain.ToDoAgg
 
         private void UpdateGaurd(string title, DateTime finishedDate, Priority priority)
         {
-            if (string.IsNullOrWhiteSpace(title))
-                throw new DomainRulesViolatedException("Title Can Not be Empty Or Null");
-            else if (finishedDate < CreatedDate)
-                throw new DomainRulesViolatedException("FinishedDate Can Not Be Samller Than CreatedDate");
-            else if (priority is 0)
+            TitleGuard(title);
+            FinishedDateGuard(finishedDate);
+            PriorityGuard(priority);
+        }
+
+        public void PriorityGuard(Priority priority)
+        {
+            if (priority is 0)
                 throw new DomainRulesViolatedException("Priority Can not Be 0 or default");
         }
+        public void FinishedDateGuard(DateTime finishedDate)
+        {
+            if (finishedDate < CreatedDate)
+                throw new DomainRulesViolatedException("FinishedDate Can Not Be Samller Than CreatedDate");
+        }
+        private void TitleGuard(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+                throw new DomainRulesViolatedException("Title Can Not be Empty Or Null");
+        }
+
+        #endregion
     }
 }

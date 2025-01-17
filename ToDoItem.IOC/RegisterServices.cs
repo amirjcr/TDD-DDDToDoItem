@@ -9,8 +9,8 @@ namespace ToDoItem.IOC
     {
         public static IServiceCollection REGISTER_APPLICATION_SERVICES(this IServiceCollection services, IConfiguration configuration)
         {
-            services.RegisterPersistanceServices(configuration.GetConnectionString("DefaultConnection") ?? throw new RegistererException(typeof(PersistanceDI),
-                                                                                                                            "connection string is null or not valid "));
+            services.RegisterPersistanceServices(configuration.GetConnectionString("DefaultConnection") ??
+                throw new RegistererException(typeof(PersistanceDI), "connection string is null or not valid "));
             return services;
         }
     }

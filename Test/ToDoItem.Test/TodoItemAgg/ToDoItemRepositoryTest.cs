@@ -22,7 +22,7 @@ namespace ToDoItem.Test.TodoItemAgg
         private IToDoItemRepository _repo = default!;
         private IToDoItemService _service = default!;
         private IUserService _userService = default!;
-        
+
         [TestInitialize]
         public void InitiatePreRequireties()
         {
@@ -40,7 +40,7 @@ namespace ToDoItem.Test.TodoItemAgg
         [TestMethod]
         public void Get_ItemWithZeroId_WillReturnNull()
         {
-            Assert.IsNull(_repo.GetById(4));
+            Assert.IsNull(_repo.GetById(4839));
         }
 
         [TestMethod]
@@ -87,7 +87,7 @@ namespace ToDoItem.Test.TodoItemAgg
 
             var oldTitle = item.Title;
 
-            item.UpdateToDoItem("Make new TodoItem", item.FinishedDate, item.Priority);
+            item.Update("Make new TodoItem", item.FinishedDate, item.Priority);
 
             _repo.Update(item);
             _repo.SaveChanges();

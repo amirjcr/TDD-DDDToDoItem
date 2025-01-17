@@ -95,7 +95,7 @@ public class ToDoItemTests
     public void UpdateItem_TitleIsNullOrEmpty_ThrownRuleValidationException()
     {
         var todoItem = Domain.ToDoAgg.ToDoItem.CreateItem("TodoItem", DateTime.Now.AddDays(3), Priority.Normal, _user.Id, _todoItemService);
-        todoItem.UpdateToDoItem(string.Empty, todoItem.FinishedDate, todoItem.Priority);
+        todoItem.Update(string.Empty, todoItem.FinishedDate, todoItem.Priority);
     }
 
 
@@ -104,7 +104,7 @@ public class ToDoItemTests
     public void UpdateItem_FinishedDateIsDefault_ThrownExceptionN()
     {
         var todoItem = Domain.ToDoAgg.ToDoItem.CreateItem("TodoItem", DateTime.Now.AddDays(3), Priority.Normal, _user.Id, _todoItemService);
-        todoItem.UpdateToDoItem(todoItem.Title!, default, todoItem.Priority);
+        todoItem.Update(todoItem.Title!, default, todoItem.Priority);
     }
 
     [TestMethod]
@@ -112,7 +112,7 @@ public class ToDoItemTests
     public void UpdateItem_PriorityIsDefault_ThrownExceptionN()
     {
         var todoItem = Domain.ToDoAgg.ToDoItem.CreateItem("TodoItem", DateTime.Now.AddDays(3), Priority.Normal, _user.Id, _todoItemService);
-        todoItem.UpdateToDoItem(todoItem.Title!, todoItem.FinishedDate, default);
+        todoItem.Update(todoItem.Title!, todoItem.FinishedDate, default);
     }
 
     [TestMethod]
@@ -120,14 +120,14 @@ public class ToDoItemTests
     public void UpdateItem_FinishedDateIsSamllerThanCreateDate_ThrownExceptionN()
     {
         var todoItem = Domain.ToDoAgg.ToDoItem.CreateItem("TodoItem", DateTime.Now.AddDays(3), Priority.Normal, _user.Id, _todoItemService);
-        todoItem.UpdateToDoItem(todoItem.Title!, DateTime.Now.AddDays(-2), todoItem.Priority);
+        todoItem.Update(todoItem.Title!, DateTime.Now.AddDays(-2), todoItem.Priority);
     }
 
     [TestMethod]
     public void UpdateItem_PriorityIsHight_AcceptChanges()
     {
         var todoItem = Domain.ToDoAgg.ToDoItem.CreateItem("TodoItem", DateTime.Now.AddDays(3), Priority.Normal, _user.Id, _todoItemService);
-        todoItem.UpdateToDoItem(todoItem.Title!, todoItem.FinishedDate, Priority.High);
+        todoItem.Update(todoItem.Title!, todoItem.FinishedDate, Priority.High);
 
         Assert.IsTrue(todoItem.Priority == Priority.High);
     }
@@ -138,7 +138,7 @@ public class ToDoItemTests
     {
         var todoItem = Domain.ToDoAgg.ToDoItem.CreateItem("TodoItem", DateTime.Now.AddDays(3), Priority.Normal, _user.Id, _todoItemService);
         var oldTitle = todoItem.Title;
-        todoItem.UpdateToDoItem("new Title Is Assighned", todoItem.FinishedDate, todoItem.Priority);
+        todoItem.Update("new Title Is Assighned", todoItem.FinishedDate, todoItem.Priority);
 
         Assert.IsTrue(todoItem.Title != oldTitle);
     }
